@@ -26,6 +26,15 @@ import ParagraphPlugin from '@ckeditor/ckeditor5-paragraph/src/paragraph';
 import AlignmentPlugin from '@ckeditor/ckeditor5-alignment/src/alignment';
 import HighlightPlugin from '@ckeditor/ckeditor5-highlight/src/highlight';
 import FontPlugin from '@ckeditor/ckeditor5-font/src/font';
+import SelectorImage from './custom-plugins/image-selector/image-selector';
+import ImageResize from './custom-plugins/image-selector/image-resize';
+
+import ImageStyleUI from '@ckeditor/ckeditor5-image/src/imagestyle/imagestyleui';
+
+import fullWidthIcon from '@ckeditor/ckeditor5-core/theme/icons/object-full-width.svg';
+import leftIcon from '@ckeditor/ckeditor5-core/theme/icons/object-left.svg';
+import centerIcon from '@ckeditor/ckeditor5-core/theme/icons/object-center.svg';
+import rightIcon from '@ckeditor/ckeditor5-core/theme/icons/object-right.svg';
 
 export default class SBClassicEditor extends SBClassicEditorBase {}
 
@@ -45,14 +54,17 @@ SBClassicEditor.build = {
 		ImagePlugin,
 		ImagecaptionPlugin,
 		ImagestylePlugin,
-		ImagetoolbarPlugin,
 		ImageuploadPlugin,
 		LinkPlugin,
 		ListPlugin,
 		ParagraphPlugin,
 		AlignmentPlugin,
 		HighlightPlugin,
-		FontPlugin
+		FontPlugin,
+		SelectorImage,
+		ImagetoolbarPlugin,
+		ImageStyleUI,
+		ImageResize
 	],
 	config: {
 		fontSize: {
@@ -88,7 +100,7 @@ SBClassicEditor.build = {
 				'link',
 				'bulletedList',
 				'numberedList',
-				'imageUpload',
+				'SelectorImage',
 				'blockQuote',
 				'undo',
 				'redo'
@@ -97,9 +109,53 @@ SBClassicEditor.build = {
 		image: {
 			toolbar: [
 				'imageStyle:full',
-				'imageStyle:side',
+				'imageStyle:alignLeft',
+				'imageStyle:alignCenter',
+				'imageStyle:alignRight',
+				'|',
+				'SelectorImage',
 				'|',
 				'imageTextAlternative'
+			],
+			styles: [
+				{
+					name: 'full',
+					title: 'Full size image',
+					icon: fullWidthIcon,
+					isDefault: true
+				},
+
+				{
+					name: 'side',
+					title: 'Side image',
+					icon: rightIcon,
+					className: 'image-style-side'
+				},
+
+				{
+					name: 'alignLeft',
+					title: 'Left aligned image',
+					icon: leftIcon,
+					className: 'image-style-align-left'
+				},
+
+				{
+					name: 'alignCenter',
+					title: 'Centered image',
+					icon: centerIcon,
+					className: 'image-style-align-center'
+				},
+
+				{
+					name: 'alignRight',
+					title: 'Right aligned image',
+					icon: rightIcon,
+					className: 'image-style-align-right'
+				}
+			]
+		},
+		imageSelector: {
+			urls: [
 			]
 		},
 		language: 'pt-br'
