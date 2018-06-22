@@ -20,13 +20,22 @@ export function popupModal(){
 
 	let show = (editor) =>{
 		let urls = editor.config.get('imageSelector').urls;
-		let template = createTemplate(urls);
-		initTemplate(template);
+		let template;
 
-		document.getElementById("ck-modal-image-selector").style.display = 'flex';
+		if (urls){
+			template = createTemplate(urls);
+			initTemplate(template);
+
+			document.getElementById("ck-modal-image-selector").style.display = 'flex';
+		}
 
 		promise = new Promise((resolve, reject)=>{
 			let elSelectors = document.getElementsByClassName('image-selector');
+
+			if(!elSelectors.length){
+				close();
+				reject();
+			}
 
 			for (let i=0; i<elSelectors.length; i++){
 				elSelectors[i].addEventListener('click', event=>{
