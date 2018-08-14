@@ -13,11 +13,13 @@ const { bundler, styles } = require( '@ckeditor/ckeditor5-dev-utils' );
 const CKEditorWebpackPlugin = require( '@ckeditor/ckeditor5-dev-webpack-plugin' );
 const BabiliPlugin = require( 'babel-minify-webpack-plugin' );
 const buildConfig = require( './build-config' );
+require("babel-polyfill");
 
 module.exports = {
 	devtool: 'source-map',
+	entry: ["babel-polyfill", "./src/ckeditor.js"],
 
-	entry: path.resolve( __dirname, 'src', 'ckeditor.js' ),
+	//entry: path.resolve( __dirname, 'src', 'ckeditor.js' ),
 
 	output: {
 		path: path.resolve( __dirname, 'build' ),
@@ -43,6 +45,12 @@ module.exports = {
 	],
 
 	module: {
+		loaders: [
+			{
+				test: /\.js$/,
+				loaders: ['babel-preset-es2015', 'babel-preset-stage-0']
+			}
+		],
 		rules: [
 			{
 				test: /\.svg$/,
