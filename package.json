@@ -1,6 +1,6 @@
 {
   "name": "@socialbase/sb-ckeditor5-build-classic",
-  "version": "10.0.4",
+  "version": "10.0.7",
   "description": "Socialbase CKEditor 5 classic editor build.",
   "keywords": [
     "socialbase"
@@ -27,11 +27,17 @@
     "@ckeditor/ckeditor5-paragraph": "^10.0.0",
     "@ckeditor/ckeditor5-theme-lark": "^10.0.0",
     "@ckeditor/ckeditor5-upload": "^10.0.0",
+    "babel-cli": "^6.26.0",
     "babel-minify-webpack-plugin": "^0.3.0",
+    "babel-plugin-transform-es2015-arrow-functions": "^6.22.0",
+    "babel-polyfill": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-es2015-webpack": "^6.4.3",
     "postcss-loader": "^2.0.10",
     "raw-loader": "^0.5.1",
     "style-loader": "^0.20.3",
     "webpack": "^3.11.0",
+    "webpack-cli": "^3.1.0",
     "webpack-sources": "1.0.1"
   },
   "engines": {
@@ -46,8 +52,9 @@
     "url": "https://github.com/socialbase/ckeditor5-build-classic.git"
   },
   "scripts": {
-	"dev": "webpack-dev-server",
+    "dev": "webpack-dev-server",
     "build": "npm run build-ckeditor",
+    "af": "babel --plugins transform-es2015-arrow-functions build/ckeditor.js",
     "create-entry-file": "node bin/create-entry-file.js",
     "build-ckeditor": "sh bin/build-ckeditor.sh",
     "preversion": "npm run build; if [ -n \"$(git status src/ckeditor.js build/ --porcelain)\" ]; then git add -u src/ckeditor.js build/ && git commit -m 'Internal: Build.'; fi"
